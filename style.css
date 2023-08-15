@@ -1,36 +1,182 @@
-  main {
-      display: grid;
-      grid-template-rows: 1fr 1fr;
-      grid-template-columns: 1fr 8fr;
-      justify-content: center;
-      background-color: #f9f9f9;
-      gap: 12px;
-
+  html {
+    font-family: 'Poppins', sans-serif;
   }
 
-  /* .item{
-    /* gap: 12px; */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
 
-  .libhead{
+  main {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    grid-template-columns: 6fr 2fr;
+    justify-content: center;
+    background-color: #f9f9f9;
+    gap: 12px;
+    min-height: 100%;
+  }
+
+  #addbook {
     display: flex;
+    align-items: center;
     justify-content: space-between;
+    padding: 12px;
+  }
+
+  .newbook {
+    border: none;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    /* position: fixed; */
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    outline: transparent;
+    background: linear-gradient(135deg, #2196f3 0%, #1565c0 100%);
+    color: #fff;
+    box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+  }
+  /* fallback */
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/materialicons/v140/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format('woff2');
+}
+  .materialicon{
+    font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+  }
+
+  .item {
+    border-radius: 8px;
+  }
+
+  .libhead {
     width: 100%;
     grid-column: 1/3;
   }
 
-  .library-main{
+  .libhead h1 {
+    font-size: 42px;
+    font-weight: 600;
+    margin-left: 12px;
+  }
+
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  .libhead button {
+    padding: 12px;
+    margin: 12px 12px;
+    text-decoration: none;
+    font-family: Phantomsans, sans-serif;
+    border: 0;
+    border-radius: 8px;
+  }
+
+  .library-main {
     width: 100%;
-    background-color: aquamarine;
+    background-color: #e7e7e7;
   }
 
   .library-nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
     width: 100%;
-      background-color: red;
+    background-color: #f1f1f1;
   }
 
-  /* footer {
-      background-color: #f0f0f0;
-      padding: 10px;
-  } */
+  .data {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .title {
+    padding-top: 40px;
+    font-size: 26px;
+    text-align: center;
+  }
+
+  .infosec {
+    width: 100%;
+  }
+
+  .info {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+  }
+
+  .stor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+  }
+
+  /* CSS */
+  #storbutton {
+    margin-top: 20px;
+    align-items: center;
+    background-image: linear-gradient(144deg, #AF40FF, #5B42F3 50%, #00DDEB);
+    border: 0;
+    border-radius: 8px;
+    box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    display: flex;
+    font-family: Phantomsans, sans-serif;
+    font-size: 20px;
+    justify-content: center;
+    line-height: 1em;
+    max-width: 100%;
+    min-width: 140px;
+    padding: 19px 24px;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  #storbutton:active,
+  .button-63:hover {
+    outline: 0;
+  }
+
+  @media (min-width: 768px) {
+    #storbutton {
+      font-size: 24px;
+      min-width: 196px;
+    }
+  }
+
+  footer {
+    background-color: #f1f1f1;
+    padding: 10px;
+  }
 
   /* Add your custom styles for buttons and other elements here */

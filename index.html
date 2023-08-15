@@ -2,6 +2,11 @@
 <html lang="en">
 
 <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="reset.css" media="screen" />
@@ -12,14 +17,64 @@
 <body>
     <main>
         <header class="libhead">
-            <h1>Library</h1>
-            <button></button>
+            <div class="container">
+                <h1>Library</h1>
+                <button>Sign In</button>
+            </div>
         </header>
-        <div class=" item library-main"></div>
-        <div class=" item library-nav"></div>
-        <!-- <footer> <a href="https://github.com/meanwhile7/Project-Library">
-                <img src="image/github.svg" alt="Repo">
-            </a></footer> -->
+        <div class=" item library-main">
+            <div id="addbook">
+                <div class="order">
+                    <label for="order_by"
+                      >order by:
+                      <select name="order_by" id="order_by">
+                        <option value="insertion_date" selected>Insertion date</option>
+                        <option value="publishing_date">Publishing date</option>
+                      </select>
+                      <select name="order" id="order">
+                        <option value="ascending">Asc</option>
+                        <option value="descending" selected>Desc</option>
+                      </select>
+                    </label>
+                  </div>
+                <button class="newbook">
+                    <span class="materialicon">add</span>
+                </button>
+            </div>
+            <div class="gridbook"></div>
+        </div>
+        <div class=" item library-nav">
+            <sec class="infosec">
+                <h1 class="title">Information</h1>
+                <div class="data">
+                    <sec class="info">
+                        <h3>Books</h3>
+                        <span id="book">5</span>
+                    </sec>
+                    <sec class="info">
+                        <h3>Completed books</h3>
+                        <span id="combook">2</span>
+                    </sec>
+                    <sec class="info">
+                        <h3>Pages</h3>
+                        <span id="page">4</span>
+                    </sec>
+                    <sec class="info">
+                        <h3>Total page</h3>
+                        <span id="totpage">10</span>
+                    </sec>
+                </div>
+            </sec>
+
+            <sec class="stor">
+                <h1 class="title">Storage</h1>
+                <button id="storbutton">Delete Data</button>
+            </sec>
+            <footer> <a href="https://github.com/meanwhile7/Project-Library">
+                    <img src="image/github.svg" alt="Repo">
+                </a></footer>
+        </div>
+
     </main>
 </body>
 
