@@ -303,7 +303,27 @@
   }
 
   .infosec {
+    margin-bottom: 90px;
     width: 100%;
+  }
+
+  .gridbook{
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+  }
+
+  #empty{
+    display: none;
+    width: 60%;
+    justify-content: center;
+    position: absolute;
+
+  }
+
+  .empty_text{
+    font-weight: bold;
+    line-height: 1.5;
+    opacity: 80%;
   }
 
   .info {
