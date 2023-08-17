@@ -4,15 +4,19 @@ const closemodal = document.querySelector('.closemodal')
 const gridbook = document.querySelector('.gridbook')
 const addButton = document.querySelector('.add-book');
 const reset = document.querySelector('#storbutton')
+const book = document.querySelector('.book_row')
+const clear = document.querySelector('.clear')
 
 openModal.addEventListener('click', () => {
     // Add the event listener to the "Add" button when the dialog opens
     addButton.addEventListener('click', submitForm);
+    clear.addEventListener('click', clearfield)
     modal.showModal();
 })
 
 closemodal.addEventListener('click', () => {
     addButton.removeEventListener('click', submitForm);
+    clear.removeEventListener('click', clearfield)
     modal.close();
 })
 
@@ -27,9 +31,33 @@ function submitForm() {
     const author = document.getElementById('b-author').value;
     const language = document.getElementById('b-language').value;
     const totalPages = parseInt(document.getElementById('b-nbr_of_pages').value);
-    const pagesRead = parseInt(document.getElementById('b-nbr_of_pages').value);
+    const pagesRead = parseInt(document.getElementById('b-nbr_of_pages_read').value);
     const readStatus = document.getElementById('b-read_status').value;
 
+    // Check if any of the input fields are blank or null
+    if (!title || !author || !language || isNaN(totalPages) || isNaN(pagesRead)) {
+        alert('Please fill in all the required fields.');
+        return;
+    }
+
+    // Create a unique identifier for each book (using title and author)
+    const bookIdentifier = `${title}-${author}`;
+    // Retrieve the existing data from local storage
+    const storedDataJSON = localStorage.getItem('myData');
+    let storedDataArray = [];
+
+    if (storedDataJSON) {
+        storedDataArray = JSON.parse(storedDataJSON);
+    }
+
+    // Create a Set from the stored data's unique identifiers
+    const existingIdentifiers = new Set(storedDataArray.map(existingBook => `${existingBook["book-title"]}-${existingBook["book-author"]}`));
+
+    // Check if the entered book's identifier is already in the Set
+    if (existingIdentifiers.has(bookIdentifier)) {
+        alert('Duplicate book data. This book is already added.');
+        return; // Exit the function if it's a duplicate
+    }
 
     // Create an object to store the form data
     const bookData = {
@@ -42,8 +70,6 @@ function submitForm() {
     };
 
     // Retrieve the existing data from local storage
-    const storedDataJSON = localStorage.getItem('myData');
-    let storedDataArray = [];
 
     if (storedDataJSON) {
         storedDataArray = JSON.parse(storedDataJSON);
@@ -56,8 +82,71 @@ function submitForm() {
     const updatedDataArrayJSON = JSON.stringify(storedDataArray);
     localStorage.setItem('myData', updatedDataArrayJSON);
 
-    // Retrieve and display the updated data from local storage
-    console.log(storedDataArray);
+    document.getElementById('b-title').value = '';
+    document.getElementById('b-author').value = '';
+    document.getElementById('b-language').value = '';
+    document.getElementById('b-nbr_of_pages').value = '';
+    document.getElementById('b-nbr_of_pages_read').value = '';
 
+    // creating element 
+
+    // create_element(bookData)
+
+    add_book(bookIdentifier)
+
+}
+
+function add_book(bookIdentifier) {
+    // Retrieve the stored data from local storage using the identifier
+    const storedDataJSON = localStorage.getItem('myData');
+    const storedDataArray = JSON.parse(storedDataJSON);
+    console.log(storedDataJSON)
+    console.log(storedDataArray[1])
+    // Find the book data using the identifier
+    const bookData = storedDataArray.find(book => {
+        const identifier = `${book["book-title"]}-${book["book-author"]}`;
+        return identifier === bookIdentifier;
+    });
+
+    if (!bookData) {
+        console.error("Book data not found.");
+        return;
+    }
+
+    // Create elements for each book and append them to the 'book' element
+    const bookElement = document.querySelector('.book_row');
+    const newBookDetails = document.createElement('div');
+    newBookDetails.classList.add('book-details'); // You can adjust the class name as needed
+
+    // Extract data from the retrieved bookData
+    const title = bookData["book-title"];
+    const author = bookData["book-author"];
+    const language = bookData["book-language"];
+    const totalPages = bookData["pages-count"];
+    const pagesRead = bookData["pages-read"];
+    const readStatus = bookData["book-status"];
+
+    // Populate the new book element with data
+    newBookDetails.innerHTML = `
+        <h3>${title}</h3>
+        <p>Author: ${author}</p>
+        <p>Language: ${language}</p>
+        <p>Total Pages: ${totalPages}</p>
+        <p>Pages Read: ${pagesRead}</p>
+        <p>Read Status: ${readStatus}</p>
+    `;
+
+    // Append the new book element to the 'book' container
+    bookElement.appendChild(newBookDetails);
+}
+
+
+function clearfield() {
+    const test = document.getElementById('b-title').value = '';
+    console.log(test)
+    document.getElementById('b-author').value = '';
+    document.getElementById('b-language').value = '';
+    document.getElementById('b-nbr_of_pages').value = '';
+    document.getElementById('b-nbr_of_pages_read').value = '';
 }
 
