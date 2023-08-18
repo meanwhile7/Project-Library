@@ -16,10 +16,38 @@ closemodal.addEventListener("click", closeModal);
 // Clear localStorage
 document.querySelector("#storbutton").addEventListener("click", () => {
   localStorage.clear();
+  window.location.reload();
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+  const local = JSON.parse(localStorage.getItem("myData")) || [];
+  for (let i = 0; i < local.length; i++) {
+    const bookData = local[i];
+    addBook(bookData);
+  }
+
+  if (local.length === 0) {
+    document.getElementById("empty").style.display = "flex";
+  }
+  navbar(local)
+});
+
+function navbar(local){
+  const total = document.getElementById("totpage")
+  const book = document.getElementById("book");
+  const pagesInput = document.getElementById("b-nbr_of_pages");
+  const pagesReadInput = document.getElementById("b-nbr_of_pages_read");
+  pagesInput.addEventListener("input", function() {
+    pagesReadInput.max = this.value;
+  });
+  // const compbook = document.getElementById('combook')
+  // book.textContent= 
+  book.textContent = local.length;
+}
 
 function submitForm() {
   const bookData = extractFormData();
+  console.log(bookData);
   if (!validateFormData(bookData)) return;
   if (isDuplicateBook(bookData)) return;
   storeBookData(bookData);
@@ -57,7 +85,7 @@ function isDuplicateBook(bookData) {
   const storedDataArray = getStoredDataArray();
   const bookIdentifier = `${bookData.title}-${bookData.author}`;
   const existingIdentifiers = new Set(
-    storedDataArray.map(book => `${book["book-title"]}-${book["book-author"]}`)
+    storedDataArray.map((book) => `${book.title}-${book.author}`)
   );
   if (existingIdentifiers.has(bookIdentifier)) {
     alert("Duplicate book data. This book is already added.");
@@ -72,6 +100,7 @@ function getStoredDataArray() {
 
 function storeBookData(bookData) {
   const storedDataArray = getStoredDataArray();
+  console.log(storedDataArray);
   storedDataArray.push(bookData);
   localStorage.setItem("myData", JSON.stringify(storedDataArray));
 }
@@ -92,10 +121,11 @@ function addBook(bookData) {
 
 function createBookDetailsElement(bookData) {
   const newBookDetails = document.createElement("div");
+  document.getElementById("empty").style.display = "none";
   newBookDetails.classList.add("book-details");
 
-  const { title, author, language, totalPages, pagesRead, readStatus } = bookData;
-
+  const { title, author, language, totalPages, pagesRead, readStatus } =
+    bookData;
   const deleteButton = document.createElement("span");
   deleteButton.className = "remove-book";
   newBookDetails.appendChild(deleteButton);
@@ -106,14 +136,22 @@ function createBookDetailsElement(bookData) {
     { tag: "span", className: "book-lang", text: `Language: ${language}` },
     { tag: "span", className: "tot-page", text: `Total Pages: ${totalPages}` },
     { tag: "span", className: "page-read", text: `Pages Read: ${pagesRead}` },
-    { tag: "span", className: "read-toggle", text: `Mark as read: ${readStatus}` },
-    { tag: "label", className: "toggle-container", children: [
-      { tag: "input", className: "toggle-input", type: "checkbox" },
-      { tag: "span", className: "toggle-slider" }
-    ] }
+    {
+      tag: "span",
+      className: "read-toggle",
+      text: `Mark as read: ${readStatus}`,
+    },
+    {
+      tag: "label",
+      className: "toggle-container",
+      children: [
+        { tag: "input", className: "toggle-input", type: "checkbox" },
+        { tag: "span", className: "toggle-slider" },
+      ],
+    },
   ];
 
-  elementsToCreate.forEach(elementConfig => {
+  elementsToCreate.forEach((elementConfig) => {
     const element = document.createElement(elementConfig.tag);
     if (elementConfig.className) {
       element.className = elementConfig.className;
@@ -122,7 +160,7 @@ function createBookDetailsElement(bookData) {
       element.textContent = elementConfig.text;
     }
     if (elementConfig.children) {
-      elementConfig.children.forEach(childConfig => {
+      elementConfig.children.forEach((childConfig) => {
         const child = document.createElement(childConfig.tag);
         if (childConfig.className) {
           child.className = childConfig.className;
