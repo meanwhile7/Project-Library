@@ -3,6 +3,7 @@ const modal = document.querySelector("#modal");
 const closemodal = document.querySelector(".closemodal");
 const addButton = document.querySelector(".add-book");
 const clear = document.querySelector(".clear");
+const remove_book = document.querySelectorAll('cross_button')
 
 // Attach event listeners
 openModal.addEventListener("click", () => {
@@ -126,12 +127,13 @@ function createBookDetailsElement(bookData) {
 
   const { title, author, language, totalPages, pagesRead, readStatus } =
     bookData;
-  const deleteButton = document.createElement("span");
-  deleteButton.className = "remove-book";
-  newBookDetails.appendChild(deleteButton);
 
   const elementsToCreate = [
-    { tag: "h3", text: title },
+    { tag: "h3", text: title , children: [
+      {tag: "button", className: "cross_button" , children: [
+        {tag: "div"}
+      ]}
+    ]},
     { tag: "span", className: "book-author", text: `Author: ${author}` },
     { tag: "span", className: "book-lang", text: `Language: ${language}` },
     { tag: "span", className: "tot-page", text: `Total Pages: ${totalPages}` },

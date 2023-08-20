@@ -324,14 +324,36 @@ main {
   }
 }
 
-/* @media screen and (max-width: 950px) {
-  .book-details{
-    grid-column: span 6;
+#order {
+  border: solid rgba(93, 104, 116, 0.5) 1px;
+  background-color: transparent;
+  border-radius: 3px;
+  height: 1.5rem;
+  padding-left: 0.3rem;
+  padding-right: 0.3rem;
+  margin-left: 0.3rem;
+}
+
+  /* Style the option elements */
+  option {
+    background-color: white;
+    color: #333;
   }
-} */
+
+  /* Style the option when hovered */
+  option:hover {
+    background-color: #318cd6;
+  }
+
+  /* Style the selected option */
+  option:checked {
+    background-color: #7aaee6;
+    color: white;
+  }
 
 .book-details {
-  padding: 2rem;
+  padding-top: 14px;
+  padding: 12px 32px 32px 32px;
   display: flex;
   flex-direction: column;
   text-align: start;
@@ -354,6 +376,24 @@ main {
 .book-details span {
   padding: 5px 0;
 }
+
+.book-details h3{
+  display: flex;
+  justify-content: space-between;
+}
+
+.cross_button{
+  border-radius: 50%;
+  background-color: #48abe0;
+  color: white;
+  border: none;
+  padding: 5px;
+  font-size: 31px;
+  height: 15px;
+  width: 15px;
+}
+
+
 
 /* .read-toggle {
   position: absolute;
