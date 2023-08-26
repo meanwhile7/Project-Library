@@ -13,7 +13,6 @@ openModal.addEventListener("click", () => {
 });
 
 closemodal.addEventListener("click", closeModal);
-
 // Clear localStorage
 document.querySelector("#storbutton").addEventListener("click", () => {
   localStorage.clear();
@@ -22,9 +21,11 @@ document.querySelector("#storbutton").addEventListener("click", () => {
 
 document.addEventListener("DOMContentLoaded", function () {
   const local = JSON.parse(localStorage.getItem("myData")) || [];
+
+  console.log("raw data: ",local)
   for (let i = 0; i < local.length; i++) {
     const bookData = local[i];
-    addBook(bookData);
+    addBook(bookData,i);
   }
 
   if (local.length === 0) {
@@ -59,6 +60,7 @@ function submitForm() {
 function closeModal() {
   addButton.removeEventListener("click", submitForm);
   clear.removeEventListener("click", clearField);
+  window.location.reload();
   modal.close();
 }
 
@@ -101,7 +103,6 @@ function getStoredDataArray() {
 
 function storeBookData(bookData) {
   const storedDataArray = getStoredDataArray();
-  console.log(storedDataArray);
   storedDataArray.push(bookData);
   localStorage.setItem("myData", JSON.stringify(storedDataArray));
 }
@@ -114,16 +115,17 @@ function clearField() {
   document.getElementById("b-nbr_of_pages_read").value = "";
 }
 
-function addBook(bookData) {
+function addBook(bookData,index) {
   const bookElement = document.querySelector(".book_row");
-  const newBookDetails = createBookDetailsElement(bookData);
+  const newBookDetails = createBookDetailsElement(bookData,index);
   bookElement.appendChild(newBookDetails);
 }
 
-function createBookDetailsElement(bookData) {
+function createBookDetailsElement(bookData,index) {
   const newBookDetails = document.createElement("div");
   document.getElementById("empty").style.display = "none";
   newBookDetails.classList.add("book-details");
+  newBookDetails.classList.add(`book-index-${index}`);
 
   const { title, author, language, totalPages, pagesRead, readStatus } =
     bookData;
